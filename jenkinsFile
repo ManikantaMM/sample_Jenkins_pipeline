@@ -4,7 +4,7 @@ pipeline{
         stage('trail'){
             steps{
                 sh 'python3 --version'
-                sh 'python amis_in_between_specified_dates.py 2023-11-01 2023-11-30'
+                sh 'python3 amis_in_between_specified_dates.py 2023-11-01 2023-11-30'
             }
 
         }
