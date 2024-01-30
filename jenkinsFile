@@ -1,35 +1,13 @@
-pipeline {
+pipeline{
     agent any
-
-    parameters {
-        string(description: "Enter controller name", name: "controller_name")
-        choice(
-            choices: [
-                "us-west-2", "ap-east-1", "af-south-1", "ap-south-1", "ap-southeast-2",
-                "ap-southeast-1", "eu-central-1", "eu-west-2", "sa-east-1"
-            ],
-            description: "Select region name",
-            name: "region_name"
-        )
-        booleanParam(defaultValue: false, description: "Do you want to print the region name and controller name", name: "display")
-    }
     stages {
-        stage('Display Controller and Region Names') {
-            when {
-                expression { params.display == true }
+        stage('trail'){
+            steps{
+                sh 'python amis_in_between_specified_dates.py 2023-11-01 2023-11-30'
+                }
+
             }
-            steps {
-                echo "Controller name is ${params.controller_name}"
-                echo "Region name is ${params.region_name}"
-            }
-        }
-        stage('Not Displaying Names') {
-            when {
-                expression { params.display != true }
-            }
-            steps {
-                echo "Will not display"
-            }
+
         }
     }
 }
