@@ -31,7 +31,7 @@ pipeline{
         stage('Build'){
             steps{
                 script{
-                    sh 'python -m venv venv'
+                    sh 'python3 -m venv venv'
                     sh 'source venv/bin/activate'
                     sh "python3 amis_in_between_specified_dates.py --host_name ${params.controller_name} --region_name ${params.region_name} ${params.startDate} ${params.EndDate}"
                     sh 'deactivate'
