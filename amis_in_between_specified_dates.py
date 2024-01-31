@@ -111,12 +111,13 @@ def parse_and_validate_dates(start_date_str,end_date_str):
 
 # Function to save AMI details to a CSV file
 def save_to_csv(amis,filename):
-    file_name = filename+".csv"
-    file_path = os.path.abspath(file_name)
-    if os.path.exists(file_path):
-        print(f'file {file_name} already exists')
-        os.remove(file_path)
     try:
+        file_name = filename+".csv"
+        file_path = os.path.abspath(file_name)
+        if os.path.exists(file_path):
+            print(f'file {file_name} already exists')
+            os.remove(file_path)
+    
         with open(file_name, mode='w', newline='') as csvfile:
             fieldnames = ['Host_Name', 'AMI_ID', 'CreationDate']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -224,9 +225,9 @@ def main():
 
         file_path = save_to_csv(amis_list,filename)
 
-        email_subject = input("please enter subject of email : ")
-        email_body = input("Please enter what you want to mention in body for this mail : ")
-        recipient_mail = input("Please enter the mail id to whom you want to send : ")
+        email_subject = f'{filename}'
+        email_body = f'PFA of {filename}'
+        recipient_mail = "manikantam9117@gmail.com"
         send_email(email_subject, email_body, recipient_mail, file_path)
         os.remove(file_path)
     except Exception as e:
