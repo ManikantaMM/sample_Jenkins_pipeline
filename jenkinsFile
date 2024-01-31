@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     parameters{
-        string(description: "Enter controller name",name: "controller_name",defaultValue="None")
+        string(description: "Enter controller name", name: "controller_name", defaultValue="None")
         choice(
             choices: [
                 "None","us-west-2", "ap-east-1", "af-south-1", "ap-south-1", "ap-southeast-2",
@@ -11,8 +11,8 @@ pipeline{
             description: "Select region name",
             name: "region_name"
         )
-        string(description:"Enter start date in the format YYYY-MM-DD",name: "startDate",defaultValue="None")
-        string(description:"Enter end date in the format YYYY-MM-DD",name: "EndDate",defaultValue="None")
+        string(description:"Enter start date in the format YYYY-MM-DD", name: "startDate", defaultValue="None")
+        string(description:"Enter end date in the format YYYY-MM-DD", name: "EndDate", defaultValue="None")
     }
 
     stages{
