@@ -32,9 +32,11 @@ pipeline{
         stage('trail'){
             steps{
                 script{
+                    sh 'source venv/bin/activate'
                     sh 'echo "Current working directory $(pwd)"'
                     sh 'python3 --version'
                     sh 'python3 amis_in_between_specified_dates.py 2023-11-01 2023-11-30'
+                    sh 'deactivate'
                 }
             }
 
@@ -43,7 +45,8 @@ pipeline{
             steps {
                 script {
                     // Deactivate the virtual environment
-                    sh 'deactivate'
+                    
+                    sh 'echo "deactivation completed"'
                 }
             }
         }
