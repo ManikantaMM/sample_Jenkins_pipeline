@@ -13,7 +13,7 @@ from email import encoders
 # Function to retrieve AMIs in a specific region and between specified dates
 def amis_in_region(session,hostname,region_name,from_date_to_check,to_date_to_check):
     try:
-        if (hostname!=None or hostname!="None")and (region_name==None or region_name=="None":
+        if (hostname!=None or hostname!="None")and (region_name==None or region_name=="None"):
             regionCode = hostname.split("-")[0]
             region_name = region_from_hostname(regionCode)
 
