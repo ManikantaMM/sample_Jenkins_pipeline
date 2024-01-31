@@ -181,8 +181,8 @@ def main():
     try:
         # to pass the script arguments
         parser = argparse.ArgumentParser()
-        parser.add_argument("--host_name", help="Provide AWS Instance Name")
-        parser.add_argument("--region_name", help="Please provide AWS region name")
+        parser.add_argument("host_name",nargs="?", help="Provide AWS Instance Name")
+        parser.add_argument("region_name",nargs="?", help="Please provide AWS region name")
         parser.add_argument("Start_Date",nargs="?",help="Start date")
         parser.add_argument("End_Date",nargs="?",help="End date")
 
