@@ -1,55 +1,30 @@
-
 pipeline{
     agent any
-    stages {
-        stage('Setup') {
-            steps {
-                script {
-                    // Check if the virtual environment exists
-                    //if (!fileExists('venv')) {
-                        // Create and activate a virtual environment
-                        sh 'python3 -m venv venv'
-                        
-                        // Activate the virtual environment
-                        sh 'source venv/bin/activate'
-                        
-                        // Upgrade pip in the virtual environment
-                        sh 'python3 -m pip install --upgrade pip'
 
-                        
-                        // Install initial dependencies using pip
-                        sh 'pip3 install boto3'
-                    //}// else {
-                        // Activate the existing virtual environment
-                       // sh 'source venv/bin/activate'
-                    //}
-                    
-                    // Install additional dependencies (e.g., a new module)
-                    //sh 'pip install new_module'
-                }
-            }
-        }
-        stage('trail'){
+    parameters{
+        string(description: "Enter controller name", name: "controller_name",defaultValue="None")
+        choice(
+            choices: [
+                "None","us-west-2", "ap-east-1", "af-south-1", "ap-south-1", "ap-southeast-2",
+                "ap-southeast-1", "eu-central-1", "eu-west-2", "sa-east-1"
+            ],
+            description: "Select region name",
+            name: "region_name"
+        )
+        string(description:"Enter start date in the format YYYY-MM-DD", name: "startDate",defaultValue="None")
+        string(description:"Enter end date in the format YYYY-MM-DD", name: "EndDate",defaultValue="None")
+    }
+
+    stages{
+        stage('Build'){
             steps{
                 script{
+                    sh 'python -m venv venv'
                     sh 'source venv/bin/activate'
-                    sh 'echo "Current working directory $(pwd)"'
-                    sh 'python3 --version'
-                    sh 'python3 amis_in_between_specified_dates.py 2023-11-01 2023-11-30'
+                    sh "python3 amis_in_between_specified_dates.py --host_name ${params.controller_name} --region_name ${params.region_name} ${params.startDate} ${params.EndDate}"
                     sh 'deactivate'
-                }
-            }
-
-        }
-        stage('Cleanup') {
-            steps {
-                script {
-                    // Deactivate the virtual environment
-                    
-                    sh 'echo "deactivation completed"'
                 }
             }
         }
     }
 }
-
