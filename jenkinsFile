@@ -14,7 +14,7 @@ pipeline{
                         sh 'source venv/bin/activate'
                         
                         // Upgrade pip in the virtual environment
-                        sh 'pip install --upgrade pip'
+                        sh 'python3 install --upgrade pip'
                         
                         // Install initial dependencies using pip
                         sh 'pip3 install boto3'
