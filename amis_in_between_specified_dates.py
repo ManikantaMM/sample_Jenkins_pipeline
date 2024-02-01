@@ -231,9 +231,9 @@ def main():
 
         file_path = save_to_csv(amis_list,filename)
 
-        email_subject = input("please enter subject of email : ")
-        email_body = input("Please enter what you want to mention in body for this mail : ")
-        recipient_mail = input("Please enter the mail id to whom you want to send : ")
+        email_subject = f'{filename}'
+        email_body = f'PFA of the file {filename}'
+        recipient_mail = os.getenv('recipient_mail_id')
         send_email(email_subject, email_body, recipient_mail, file_path)
         os.remove(file_path)
     except Exception as e:
