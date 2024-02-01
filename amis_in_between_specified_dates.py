@@ -13,7 +13,7 @@ from email import encoders
 # Function to retrieve AMIs in a specific region and between specified dates
 def amis_in_region(session,hostname,region_name,from_date_to_check,to_date_to_check):
     try:
-        if (hostname!=None or hostname!="None")and (region_name==None or region_name=="None"):
+        if hostname!=None and region_name==None:
             regionCode = hostname.split("-")[0]
             region_name = region_from_hostname(regionCode)
 
@@ -22,7 +22,7 @@ def amis_in_region(session,hostname,region_name,from_date_to_check,to_date_to_ch
         filtered_amis = []
 
         #if user gave the hostname then it will get the details of the particular host
-        if (hostname!=None or hostname!="None"):
+        if (hostname!=None):
             filters=[
                 {'Name':f'tag:{tag_key}','Values':[hostname]}
             ]
@@ -111,13 +111,12 @@ def parse_and_validate_dates(start_date_str,end_date_str):
 
 # Function to save AMI details to a CSV file
 def save_to_csv(amis,filename):
+    file_name = filename+".csv"
+    file_path = os.path.abspath(file_name)
+    if os.path.exists(file_path):
+        print(f'file {file_name} already exists')
+        os.remove(file_path)
     try:
-        file_name = filename+".csv"
-        file_path = os.path.abspath(file_name)
-        if os.path.exists(file_path):
-            print(f'file {file_name} already exists')
-            os.remove(file_path)
-    
         with open(file_name, mode='w', newline='') as csvfile:
             fieldnames = ['Host_Name', 'AMI_ID', 'CreationDate']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -181,16 +180,23 @@ def main():
     try:
         # to pass the script arguments
         parser = argparse.ArgumentParser()
-        parser.add_argument("host_name",nargs="?", help="Provide AWS Instance Name")
-        parser.add_argument("region_name",nargs="?", help="Please provide AWS region name")
-        parser.add_argument("Start_Date",nargs="?",help="Start date")
-        parser.add_argument("End_Date",nargs="?",help="End date")
+        parser.add_argument("--host_name", help="Provide AWS Instance Name")
+        parser.add_argument("--region_name", help="Please provide AWS region name")
+        parser.add_argument("--Start_Date",help="Start date")
+        parser.add_argument("--End_Date",nargs="?",help="End date")
 
         args = parser.parse_args()
 
         if not (args.End_Date and args.Start_Date):
             print("Start date and End date are mandatory")
             sys.exit(1)
+        elif not (args.Start_Date):
+            print("Start date is mandatory")
+            sys.exit(1)
+            sys.exit(1)
+        elif not (args.End_Date):
+            print("End date is mandatory")
+            print("End date is mandatory")
 
         hostname = args.host_name
         region_name = args.region_name
@@ -225,9 +231,9 @@ def main():
 
         file_path = save_to_csv(amis_list,filename)
 
-        email_subject = f'{filename}'
-        email_body = f'PFA of {filename}'
-        recipient_mail = "manikantam9117@gmail.com"
+        email_subject = input("please enter subject of email : ")
+        email_body = input("Please enter what you want to mention in body for this mail : ")
+        recipient_mail = input("Please enter the mail id to whom you want to send : ")
         send_email(email_subject, email_body, recipient_mail, file_path)
         os.remove(file_path)
     except Exception as e:
