@@ -3,6 +3,11 @@ pipeline{
 
     parameters{
         string(
+            name: 'recipient_mail_id',
+            description: "Please enter receiver mail id",
+            defaultValue: "mail@domain.com"
+        )
+        string(
             name: 'controller_name',
             description: 'Enter controller name',
             defaultValue: 'None'
