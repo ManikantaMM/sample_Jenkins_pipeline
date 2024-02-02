@@ -36,6 +36,7 @@ pipeline{
         stage('Build'){
             steps{
                 script{
+                    sh 'python3 -m venv venv'
                     sh 'source venv/bin/activate'
                     if (params.startDate == "None" || params.EndDate == "None"){
                         error("Both Start Date and End Date are required.")
