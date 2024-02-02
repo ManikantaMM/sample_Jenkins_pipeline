@@ -54,4 +54,10 @@ pipeline{
             }
         }
     }
+    post {
+        always {
+            // Additional cleanup steps that should run after the build regardless of success or failure
+            cleanWs()
+        }
+    }
 }
