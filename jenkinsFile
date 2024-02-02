@@ -48,8 +48,7 @@ pipeline{
                     } else if (params.controller_name != "None" && params.region_name != "None"){
                         sh "python3 amis_in_between_specified_dates.py --host_name ${params.controller_name} --region_name ${params.region_name} --Start_Date ${params.startDate} --End_Date ${params.EndDate}"
                     } 
-                    
-                    sh 'deactivate'
+    
                 }
             }
         }
