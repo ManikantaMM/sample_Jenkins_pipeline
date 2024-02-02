@@ -36,8 +36,6 @@ pipeline{
         stage('Build'){
             steps{
                 script{
-                    sh 'python3 -m venv venv'
-                    sh 'chmod -R u+w /Users/momurthy/.jenkins/workspace/Om/venv/'
                     sh 'source venv/bin/activate'
                     if (params.startDate == "None" || params.EndDate == "None"){
                         error("Both Start Date and End Date are required.")
