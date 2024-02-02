@@ -38,7 +38,7 @@ pipeline{
                 dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins/sample_Jenkins_pipeline'){
                     script{
                         sh 'python3 -m venv venv'
-                        sh 'source venv/bin/activate'
+                        sh 'source ../venv/bin/activate'
                         if (params.startDate == "None" || params.EndDate == "None"){
                             error("Both Start Date and End Date are required.")
                         } else if (params.controller_name == "None" && params.region_name == "None" ){
