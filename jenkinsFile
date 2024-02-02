@@ -35,7 +35,7 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins'){
+                dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins/sample_Jenkins_pipeline'){
                     script{
                         sh 'python3 -m venv venv'
                         sh 'source venv/bin/activate'
