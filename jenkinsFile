@@ -35,10 +35,9 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins/sample_Jenkins_pipeline'){
+                dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins/sample_Jenkins_pipeline/'){
                     script{
-                        sh 'python3 -m venv venv'
-                        sh 'source ../venv/bin/activate'
+                        sh 'source venv/bin/activate'
                         if (params.startDate == "None" || params.EndDate == "None"){
                             error("Both Start Date and End Date are required.")
                         } else if (params.controller_name == "None" && params.region_name == "None" ){
@@ -50,6 +49,7 @@ pipeline{
                         } else if (params.controller_name != "None" && params.region_name != "None"){
                             sh "python3 amis_in_between_specified_dates.py --host_name ${params.controller_name} --region_name ${params.region_name} --Start_Date ${params.startDate} --End_Date ${params.EndDate}"
                         } 
+                        sh''
     
                     }
                 }
