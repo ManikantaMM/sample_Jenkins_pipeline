@@ -37,6 +37,7 @@ pipeline{
             steps{
                 dir('/Users/momurthy/Jenkins_learnings/using_git_jenkins/sample_Jenkins_pipeline/'){
                     script{
+                        sh 'aws sso login --profile "appd-aws-650959535457-dev-650959535457"'
                         sh 'source venv/bin/activate'
                         if (params.startDate == "None" || params.EndDate == "None"){
                             error("Both Start Date and End Date are required.")
