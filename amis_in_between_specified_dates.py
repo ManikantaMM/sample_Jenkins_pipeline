@@ -204,7 +204,7 @@ def main():
         start_date = dates[0]
         end_date = dates[1]
 
-        session = boto3.Session(profile_name="appd-aws-650959535457-dev-650959535457")
+        session = boto3.Session(profile_name="#profile_name")
 
         amis_list = []
 
